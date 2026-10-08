@@ -68,6 +68,8 @@ const registerStudent = async (request, response) => {
       prenom: String(data.prenom).trim(),
       email: String(data.email).trim(),
       phone: String(data.phone || "").trim(),
+      dateNaissance: String(data.dateNaissance || "").trim(),
+      adresse: String(data.adresse || "").trim(),
       classe: String(data.classe).trim(),
       specialite: String(data.specialite).trim(),
     };

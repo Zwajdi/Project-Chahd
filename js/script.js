@@ -47,14 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!input) return;
         const isPassword = input.type === "password";
         input.type = isPassword ? "text" : "password";
-        button.textContent = isPassword ? "Masquer" : "Afficher";
+        button.textContent = isPassword ? "👁️" : "🙈";
         button.setAttribute("aria-pressed", String(isPassword));
       });
     });
   };
 
   const protectDashboard = () => {
-    if (currentPage === "dashboard" && !getSession()) {
+    if (
+      (currentPage === "dashboard" || currentPage === "profile") &&
+      !getSession()
+    ) {
       window.location.replace("login.html");
       return false;
     }
@@ -72,10 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = loginForm.elements.password.value;
         const message = document.getElementById("login-message");
         if (!identifier) {
-          setMessage(
-            message,
-            "Veuillez saisir votre CIN ou votre email.",
-          );
+          setMessage(message, "Veuillez saisir votre CIN ou votre email.");
           return;
         }
         if (!password) {
@@ -113,6 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
           "prenom",
           "cin",
           "email",
+          "dateNaissance",
+          "adresse",
           "classe",
           "specialite",
           "password",
@@ -144,7 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (
           accounts.some(
             (student) =>
-              normalizeIdentifier(student.cin) === normalizeIdentifier(data.cin),
+              normalizeIdentifier(student.cin) ===
+              normalizeIdentifier(data.cin),
           )
         ) {
           setMessage(message, "Un compte existe déjà avec ce CIN.");
@@ -153,7 +156,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (
           accounts.some(
             (student) =>
-              normalizeIdentifier(student.email) === normalizeIdentifier(data.email),
+              normalizeIdentifier(student.email) ===
+              normalizeIdentifier(data.email),
           )
         ) {
           setMessage(message, "Un compte existe déjà avec cet email.");
@@ -164,6 +168,8 @@ document.addEventListener("DOMContentLoaded", () => {
             ...data,
             cin: data.cin.trim(),
             phone: data.phone || "",
+            dateNaissance: data.dateNaissance,
+            adresse: data.adresse.trim(),
             password: data.password,
           };
           delete account.passwordConfirm;
@@ -273,7 +279,10 @@ document.addEventListener("DOMContentLoaded", () => {
     authOnlyElements.forEach((element) => element.classList.add("hidden"));
   }
 
-  if (currentPage === "dashboard" && session) {
+  if (
+    (currentPage === "dashboard" || currentPage === "profile") &&
+    session
+  ) {
     document.querySelectorAll("[data-student-name]").forEach((node) => {
       node.textContent = `${session.prenom} ${session.nom}`;
     });

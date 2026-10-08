@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Profil étudiant ISET Djerba." />
+    <title>Mon profil | ISET Djerba</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="profile">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a
+          href="dashboard.html"
+          class="brand"
+          aria-label="Retour au tableau de bord"
+        >
+          <img src="logo.png" alt="Logo ISET Djerba" class="brand-logo" />
+          <span class="brand-text"
+            ><strong>ISET Djerba</strong><small>Espace étudiant</small></span
+          >
+        </a>
+        <nav class="main-nav" aria-label="Navigation de l'espace étudiant">
+          <a href="dashboard.html">Accueil</a>
+          <a href="profil.html" class="active">Mon profil</a>
+          <button class="nav-logout" type="button" data-logout>
+            Se déconnecter
+          </button>
+        </nav>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Ouvrir le menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav id="mobile-menu" class="mobile-menu" aria-label="Menu étudiant">
+        <a href="dashboard.html">Accueil</a>
+        <a href="stages.html">Stage</a>
+        <a href="profil.html" class="active">Mon profil</a>
+        <button class="nav-logout" type="button" data-logout>
+          Se déconnecter
+        </button>
+      </nav>
+    </header>
+
+    <main class="dashboard-shell">
+      <div class="container">
+        <div class="page-hero-inner reveal profile-page-heading">
+          <span class="eyebrow">Mon profil</span>
+          <h1>Informations étudiant</h1>
+          <p>
+            Retrouvez vos informations personnelles et votre parcours
+            académique.
+          </p>
+        </div>
+        <section
+          class="dashboard-panel profile-page-card reveal"
+          aria-labelledby="profile-title"
+        >
+          <div class="profile-page-intro">
+            <div class="student-avatar profile-avatar-large" aria-hidden="true">
+              <span class="head"></span><span class="body"></span>
+            </div>
+            <div>
+              <h2 id="profile-title">
+                <span data-student-name>Étudiant</span>
+              </h2>
+              <p>Votre profil étudiant ISET Djerba</p>
+            </div>
+          </div>
+          <div class="profile-grid">
+            <div class="profile-item">
+              <small>Nom</small><strong data-student-field="nom"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Prénom</small><strong data-student-field="prenom"></strong>
+            </div>
+            <div class="profile-item">
+              <small>CIN</small><strong data-student-field="cin"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Email</small><strong data-student-field="email"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Téléphone</small
+              ><strong data-student-field="phone"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Date de naissance</small
+              ><strong data-student-field="dateNaissance"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Adresse</small
+              ><strong data-student-field="adresse"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Classe</small><strong data-student-field="classe"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Spécialité</small
+              ><strong data-student-field="specialite"></strong>
+            </div>
+          </div>
+        </section>
+        <a class="btn btn-secondary profile-back-link" href="dashboard.html"
+          >← Retour au tableau de bord</a
+        >
+      </div>
+    </main>
+    <script src="js/script.js"></script>
+  </body>
+</html>

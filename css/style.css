@@ -161,6 +161,25 @@ select {
   width: 100%;
 }
 
+.nav-logout {
+  border: 0;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(11, 79, 108, 0.08);
+  color: var(--primary-color);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-logout:hover,
+.nav-logout:focus-visible {
+  background: var(--primary-color);
+  color: #fff;
+}
+
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -194,6 +213,12 @@ select {
   padding: 0.9rem 0.4rem;
   border-bottom: 1px solid rgba(17, 31, 45, 0.06);
   color: var(--text-color);
+}
+
+.mobile-menu .nav-logout {
+  width: 100%;
+  margin-top: 0.65rem;
+  text-align: left;
 }
 
 .hero {
@@ -625,6 +650,71 @@ select {
     rgba(15, 157, 138, 0.14),
     rgba(11, 79, 108, 0.1)
   );
+}
+
+a.student-avatar {
+  display: block;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+a.student-avatar:hover,
+a.student-avatar:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 4px rgba(15, 157, 138, 0.14);
+}
+
+.profile-page-heading {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.profile-page-heading h1 {
+  margin-bottom: 0.6rem;
+}
+
+.profile-page-card {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.profile-page-intro {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.profile-page-intro h2 {
+  margin: 0;
+}
+
+.profile-page-intro p {
+  margin: 0.25rem 0 0;
+  color: var(--muted-color);
+}
+
+.profile-avatar-large {
+  width: 76px;
+  height: 76px;
+}
+
+.profile-avatar-large .head {
+  left: 27px;
+  top: 11px;
+}
+
+.profile-avatar-large .body {
+  left: 24px;
+  top: 39px;
+}
+
+.profile-back-link {
+  display: flex;
+  width: fit-content;
+  margin: 1.25rem auto 0;
 }
 
 .head {

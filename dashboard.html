@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Espace étudiant ISET Djerba : suivez chaque étape de votre stage."
+    />
     <title>Mon espace | ISET Djerba</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
@@ -10,78 +14,348 @@
     <header class="site-header">
       <div class="container header-inner">
         <a href="dashboard.html" class="brand" aria-label="Mon espace étudiant">
-          <span class="brand-mark">I</span>
+          <img src="logo.png" alt="Logo ISET Djerba" class="brand-logo" />
           <span class="brand-text"
             ><strong>ISET Djerba</strong><small>Espace étudiant</small></span
           >
         </a>
-        <button class="btn btn-secondary" type="button" data-logout>
-          Se déconnecter
+        <nav class="main-nav" aria-label="Navigation de l'espace étudiant">
+          <a href="#etapes">Étapes du stage</a>
+          <a href="#faq">FAQ</a>
+          <a href="profil.html">Mon profil</a>
+          <button class="nav-logout" type="button" data-logout>
+            Se déconnecter
+          </button>
+        </nav>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Ouvrir le menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
+      <nav id="mobile-menu" class="mobile-menu" aria-label="Menu étudiant">
+        <a href="#etapes">Mon stage</a>
+        <a href="#faq">FAQ</a>
+        <a href="profil.html">Mon profil</a>
+        <button class="nav-logout" type="button" data-logout>
+          Se déconnecter
+        </button>
+      </nav>
     </header>
-    <main class="dashboard-shell">
-      <div class="container">
-        <div class="dashboard-header">
-          <div>
+
+    <main id="main-content">
+      <section class="hero dashboard-hero">
+        <div class="container hero-grid">
+          <div class="hero-content reveal">
             <span class="eyebrow">Tableau de bord</span>
-            <h1>Bonjour, <span data-student-name>Étudiant</span></h1>
+            <h1>Bonjour, <span data-student-name>Étudiant</span> 👋</h1>
             <p>
-              Retrouvez les ressources et les étapes de votre parcours de stage.
+              Retrouvez les étapes, documents et conseils nécessaires pour
+              préparer, réaliser et finaliser votre stage avec confiance.
             </p>
+            <div class="hero-actions">
+              <a href="#etapes" class="btn btn-primary">Voir les étapes</a>
+              <a
+                href="https://drive.google.com/file/d/1fvC1-FIeieiJNCusMKlRy4KfwcSwO1Ma/view?usp=sharing"
+                class="btn btn-secondary"
+                >Exemples de Rapport PFE</a
+              >
+            </div>
+          </div>
+          <div
+            class="hero-visual reveal"
+            aria-label="Résumé de la progression du stage"
+          >
+            <div class="illustration">
+              <div class="screen-card">
+                <div class="screen-header"></div>
+                <div class="screen-body">
+                  <span class="bar short"></span>
+                  <span class="bar medium"></span>
+                  <span class="bar long"></span>
+                  <span class="pie"></span>
+                </div>
+              </div>
+              <div class="student-card">
+                <a
+                  class="student-avatar"
+                  href="profil.html"
+                  aria-label="Voir mon profil"
+                >
+                  <span class="head"></span><span class="body"></span>
+                </a>
+                <div class="student-details">
+                  <strong data-student-field="nom"></strong><br />
+                  <strong data-student-field="prenom"></strong><br />
+                  <small data-student-field="classe"></small><br />
+                </div>
+              </div>
+              <div class="floating-badge">Prochaine étape</div>
+            </div>
           </div>
         </div>
-        <section class="dashboard-panel">
-          <span class="eyebrow">Mon profil</span>
-          <h2>Informations étudiant</h2>
-          <div class="profile-grid">
-            <div class="profile-item">
-              <small>Nom</small><strong data-student-field="nom"></strong>
+      </section>
+      <section id="etapes" class="steps section-spacing">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Processus complet</span>
+            <h2>Les étapes du stage</h2>
+            <p>
+              Suivez une progression claire, de la préparation jusqu'à la
+              validation finale.
+            </p>
+          </div>
+          <div class="timeline">
+            <article class="timeline-item reveal">
+              <span class="step-number">01</span>
+              <div class="step-card">
+                <h3>Préparation de stage</h3>
+                <ul>
+                  <li>choisir le type de stage</li>
+                  <li>comprendre les objectifs de stage</li>
+                  <li>vérifier les conditions et les exigences</li>
+                  <li>
+                    imprimer la demande de stage depuis le site "my iset" en
+                    plusieurs copie
+                  </li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">02</span>
+              <div class="step-card">
+                <h3>Recherche de l’Entreprise</h3>
+                <ul>
+                  <li>identifier les entreprises adaptées à la spécialité</li>
+                  <li>Recherche les offres de stage</li>
+                  <li>envoyer les candidatures (distribution de demandes)</li>
+                  <li>contacter les entreprises</li>
+                  <li>passer un entretien si nécessaire</li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">03</span>
+              <div class="step-card">
+                <h3>obtention de l’accord de stage</h3>
+                <ul>
+                  <li>confirmer l’acceptation</li>
+                  <li>
+                    obtenir les informations nécessaires sur l’entreprise et
+                    remplir le formulaire sur le site "my iset"
+                  </li>
+                  <li>identifier l’encadreur professionnel</li>
+                  <li>vérifier les date de stage (début et la fin de stage)</li>
+                  <li>
+                    préparer le document nécessaire (la lettre d’affectation)
+                  </li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">04</span>
+              <div class="step-card">
+                <h3>démarche administratifs</h3>
+                <ul>
+                  <li>convention de stage</li>
+                  <li>demande de stage</li>
+                  <li>attestation de stage</li>
+                  <li>fiche de renseignements</li>
+                  <li>document administratif</li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">05</span>
+              <div class="step-card">
+                <h3>Début de stage</h3>
+                <ul>
+                  <li>présentation à l’entreprise</li>
+                  <li>rencontre avec l’encadreur</li>
+                  <li>compréhension de l’environnement de travail</li>
+                  <li>définition des missions</li>
+                  <li>planification du travail</li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">06</span>
+              <div class="step-card">
+                <h3>Réalisation de stage</h3>
+                <ul>
+                  <li>réalisation des missions</li>
+                  <li>respect des horaires</li>
+                  <li>communication avec l’encadreur</li>
+                  <li>
+                    Documentation du travail (noté chaque jours les tâches
+                    réalisées)
+                  </li>
+                  <li>collecte de informations nécessaire au rapport.</li>
+                  <li>suivi de l’avancement.</li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">07</span>
+              <div class="step-card">
+                <h3>Suivi pédagogique</h3>
+                <ul>
+                  <li>échange avec l’encadreur</li>
+                  <li>évaluer la progression de stage</li>
+                  <li>validation des objectifs</li>
+                  <li>Résolution des difficultés</li>
+                  <li>évaluation intermédiaire si nécessaire</li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">08</span>
+              <div class="step-card">
+                <h3>Préparation du rapport</h3>
+                <ul class="checklist">
+                  <li>Page de garde</li>
+                  <li>Remerciements</li>
+                  <li>Introduction</li>
+                  <li>Présentation de l’entreprise</li>
+                  <li>Présentation du contexte du stage</li>
+                  <li>Missions réalisées</li>
+                  <li>travail technique</li>
+                  <li>Résultats obtenus</li>
+                  <li>Difficultés rencontrées</li>
+                  <li>conclusion</li>
+                  <li>Annexes</li>
+                </ul>
+                <a
+                  href="https://drive.google.com/file/d/1fvC1-FIeieiJNCusMKlRy4KfwcSwO1Ma/view?usp=sharing"
+                  class="btn btn-secondary small-btn"
+                  >Structure du rapport</a
+                >
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">09</span>
+              <div class="step-card highlight-card">
+                <h3>Préparation de la soutenance</h3>
+                <ul>
+                  <li>préparer la présentation Paire-Paire</li>
+                  <li>Résumer les principales missions</li>
+                  <li>Présente les résultats</li>
+                  <li>Préparer les démonstrations</li>
+                  <li>préparer les réponses aux questions</li>
+                  <li>Répété la présentation</li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">10</span>
+              <div class="step-card highlight-alt">
+                <h3>soutenance</h3>
+                <ul>
+                  <li>Présentation devant le jury</li>
+                  <li>Présentation du projet</li>
+                  <li>Démonstration</li>
+                  <li>Questions du jury</li>
+                  <li>Evaluation</li>
+                </ul>
+              </div>
+            </article>
+            <article class="timeline-item reveal">
+              <span class="step-number">11</span>
+              <div class="step-card">
+                <h3>après la soutenance</h3>
+                <ul>
+                  <li>Remise des doc finaux</li>
+                  <li>corrections éventuelles</li>
+                  <li>archivage du rapport</li>
+                  <li>
+                    Evaluation finale (note &gt; 10 validé, note &lt; 10 non
+                    validé)
+                  </li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section id="faq" class="faq section-spacing">
+        <div class="container">
+          <div class="section-heading reveal">
+            <span class="eyebrow">Questions fréquentes</span>
+            <h2>FAQ</h2>
+          </div>
+          <div class="faq-list reveal">
+            <div class="faq-item active">
+              <button class="faq-question" type="button" aria-expanded="true">
+                Quand commencer à chercher mon stage ?
+              </button>
+              <div class="faq-answer">
+                <p>
+                  Commencez idéalement 3 à 5 mois avant le début prévu du stage.
+                </p>
+              </div>
             </div>
-            <div class="profile-item">
-              <small>Prénom</small><strong data-student-field="prenom"></strong>
+            <div class="faq-item">
+              <button class="faq-question" type="button" aria-expanded="false">
+                Quels documents dois-je préparer ?
+              </button>
+              <div class="faq-answer">
+                <p>
+                  Préparez notamment votre CV, la convention, la demande de
+                  stage et les documents administratifs demandés.
+                </p>
+              </div>
             </div>
-            <div class="profile-item">
-              <small>CIN</small
-              ><strong data-student-field="cin"></strong>
+            <div class="faq-item">
+              <button class="faq-question" type="button" aria-expanded="false">
+                Comment choisir une entreprise ?
+              </button>
+              <div class="faq-answer">
+                <p>
+                  Choisissez une structure compatible avec votre spécialité,
+                  votre niveau et vos objectifs professionnels.
+                </p>
+              </div>
             </div>
-            <div class="profile-item">
-              <small>Email</small><strong data-student-field="email"></strong>
-            </div>
-            <div class="profile-item">
-              <small>Téléphone</small
-              ><strong data-student-field="phone"></strong>
-            </div>
-            <div class="profile-item">
-              <small>Classe</small><strong data-student-field="classe"></strong>
-            </div>
-            <div class="profile-item">
-              <small>Spécialité</small
-              ><strong data-student-field="specialite"></strong>
+            <div class="faq-item">
+              <button class="faq-question" type="button" aria-expanded="false">
+                Comment préparer la soutenance ?
+              </button>
+              <div class="faq-answer">
+                <p>
+                  Structurez votre présentation, mettez en avant vos résultats
+                  et entraînez-vous aux questions du jury.
+                </p>
+              </div>
             </div>
           </div>
-        </section>
-        <section class="dashboard-panel" style="margin-top: 1.5rem">
-          <span class="eyebrow">Parcours de stage</span>
-          <h2>Continuez votre préparation</h2>
-          <p>
-            Les contenus existants de la plateforme restent accessibles depuis
-            votre espace.
-          </p>
-          <div class="dashboard-links">
-            <a class="dashboard-link" href="stages.html"
-              >Voir les 11 étapes du stage</a
-            >
-            <a class="dashboard-link" href="stage-details.html"
-              >Consulter le guide et les documents</a
-            >
-            <a class="dashboard-link" href="index.html#conseils"
-              >Lire les conseils pratiques</a
-            >
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <h3>ISET Djerba</h3>
+          <p>Votre espace d'accompagnement au stage.</p>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#etapes">Étapes du stage</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <button class="scroll-top" type="button" aria-label="Retour en haut">
+      ↑
+    </button>
     <script src="js/script.js"></script>
   </body>
 </html>
