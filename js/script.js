@@ -155,26 +155,9 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
         try {
-          const authorizedStudents = await fetch("data/students.json").then(
-            (response) => {
-              if (!response.ok) throw new Error("students.json indisponible");
-              return response.json();
-            },
-          );
-          const authorizedStudent = authorizedStudents.find(
-            (student) =>
-              normalizeIdentifier(student.cin) === normalizeIdentifier(data.cin),
-          );
-          if (!authorizedStudent) {
-            setMessage(
-              message,
-              "Ce CIN n'est pas reconnu. Veuillez vérifier vos informations ou contacter l'administration.",
-            );
-            return;
-          }
           const account = {
-            ...authorizedStudent,
             ...data,
+            cin: data.cin.trim(),
             phone: data.phone || "",
             password: data.password,
           };
