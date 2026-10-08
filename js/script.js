@@ -168,6 +168,15 @@ document.addEventListener("DOMContentLoaded", () => {
             password: data.password,
           };
           delete account.passwordConfirm;
+          const registrationResponse = await fetch("/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(account),
+          });
+          if (!registrationResponse.ok) {
+            const result = await registrationResponse.json().catch(() => ({}));
+            throw new Error(result.message || "Inscription indisponible");
+          }
           accounts.push(account);
           saveAccounts(accounts);
           setMessage(
