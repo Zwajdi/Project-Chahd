@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { list, put } = require("@vercel/blob");
+const { get, put } = require("@vercel/blob");
 
 const getBlobToken = () => {
   const token = process.env.BLOB_READ_WRITE_TOKEN?.trim();
@@ -18,21 +18,18 @@ const readLocalStudents = () => {
 };
 
 const readBlobJson = async (fileName, fallback) => {
-  const result = await list({
-    prefix: fileName,
-    limit: 1,
+  const result = await get(fileName, {
+    access: "private",
     token: getBlobToken(),
   });
-  if (!result.blobs.length) return fallback;
-  const response = await fetch(result.blobs[0].url);
-  if (!response.ok) throw new Error(`${fileName} indisponible`);
-  return response.json();
+  if (!result) return fallback;
+  return JSON.parse(await new Response(result.stream).text());
 };
 
 const writeBlobJson = async (fileName, data) => {
   await put(fileName, JSON.stringify(data, null, 2), {
     token: getBlobToken(),
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
     allowOverwrite: true,
     contentType: "application/json",
