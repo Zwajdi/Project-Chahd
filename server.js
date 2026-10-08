@@ -4,7 +4,6 @@ const path = require("path");
 
 const rootDirectory = __dirname;
 const studentsPath = path.join(rootDirectory, "data", "students.json");
-const accountsPath = path.join(rootDirectory, "data", "accounts.json");
 const port = 8000;
 
 const contentTypes = {
@@ -38,20 +37,11 @@ const registerStudent = async (request, response) => {
   try {
     const data = await collectBody(request);
     const students = readJson(studentsPath);
-    const accounts = readJson(accountsPath);
-    const studentIndex = students.findIndex(
-      (student) =>
-        student.cin.toLowerCase() ===
-        String(data.cin).trim().toLowerCase(),
-    );
-
-    if (studentIndex === -1) {
-      sendJson(response, 400, { message: "CIN non reconnu." });
-      return;
-    }
     if (
-      accounts.some(
-        (account) => account.cin === students[studentIndex].cin,
+      students.some(
+        (student) =>
+          String(student.cin || "").trim().toLowerCase() ===
+          String(data.cin || "").trim().toLowerCase(),
       )
     ) {
       sendJson(response, 409, {
@@ -60,9 +50,9 @@ const registerStudent = async (request, response) => {
       return;
     }
     if (
-      accounts.some(
-        (account) =>
-          account.email.toLowerCase() ===
+      students.some(
+        (student) =>
+          String(student.email || "").toLowerCase() ===
           String(data.email).trim().toLowerCase(),
       )
     ) {
@@ -73,7 +63,7 @@ const registerStudent = async (request, response) => {
     }
 
     const profile = {
-      cin: students[studentIndex].cin,
+      cin: String(data.cin).trim(),
       nom: String(data.nom).trim(),
       prenom: String(data.prenom).trim(),
       email: String(data.email).trim(),
@@ -81,14 +71,8 @@ const registerStudent = async (request, response) => {
       classe: String(data.classe).trim(),
       specialite: String(data.specialite).trim(),
     };
-    students[studentIndex] = profile;
-    accounts.push({
-      cin: profile.cin,
-      email: profile.email,
-      password: data.password,
-    });
+    students.push({ ...profile, password: data.password });
     writeJson(studentsPath, students);
-    writeJson(accountsPath, accounts);
     sendJson(response, 201, {
       message: "Compte enregistré dans les fichiers JSON.",
     });

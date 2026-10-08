@@ -45,32 +45,21 @@ module.exports = async (request, response) => {
   try {
     const data = request.body || {};
     const students = await readBlobJson("students.json", readLocalStudents());
-    const accounts = await readBlobJson("accounts.json", []);
     const cin = String(data.cin || "")
       .trim()
       .toLowerCase();
     const email = String(data.email || "")
       .trim()
       .toLowerCase();
-    const studentIndex = students.findIndex(
-      (student) => String(student.cin || "").trim().toLowerCase() === cin,
-    );
-
-    if (studentIndex === -1) {
-      response.status(400).json({
-        message: "Ce CIN n'est pas reconnu.",
-      });
-      return;
-    }
     if (
-      accounts.some((account) => String(account.cin || "").trim().toLowerCase() === cin)
+      students.some((student) => String(student.cin || "").trim().toLowerCase() === cin)
     ) {
       response.status(409).json({
         message: "Un compte existe déjà avec ce CIN.",
       });
       return;
     }
-    if (accounts.some((account) => account.email.toLowerCase() === email)) {
+    if (students.some((student) => String(student.email || "").trim().toLowerCase() === email)) {
       response.status(409).json({
         message: "Un compte existe déjà avec cet email.",
       });
@@ -78,7 +67,7 @@ module.exports = async (request, response) => {
     }
 
     const profile = {
-      cin: students[studentIndex].cin,
+      cin: String(data.cin || "").trim(),
       nom: String(data.nom || "").trim(),
       prenom: String(data.prenom || "").trim(),
       email: String(data.email || "").trim(),
@@ -86,15 +75,9 @@ module.exports = async (request, response) => {
       classe: String(data.classe || "").trim(),
       specialite: String(data.specialite || "").trim(),
     };
-    students[studentIndex] = profile;
-    accounts.push({
-      cin: profile.cin,
-      email: profile.email,
-      password: String(data.password || ""),
-    });
+    students.push({ ...profile, password: String(data.password || "") });
 
     await writeBlobJson("students.json", students);
-    await writeBlobJson("accounts.json", accounts);
     response.status(201).json({
       message: "Compte enregistré dans Vercel Blob.",
     });
