@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Créer un compte | ISET Djerba</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main class="auth-page">
+      <div class="container auth-shell">
+        <section class="auth-card">
+          <a
+            href="espace-etudiant.html"
+            class="brand"
+            aria-label="Retour à l'espace étudiant"
+          >
+            <span class="brand-mark">I</span>
+            <span class="brand-text"
+              ><strong>ISET Djerba</strong
+              ><small>Stage ISET Djerba</small></span
+            >
+          </a>
+          <span class="eyebrow">Première connexion</span>
+          <h1>Créer un compte étudiant</h1>
+          <p>
+            Utilisez votre matricule ISET pour ouvrir votre espace personnel.
+          </p>
+          <form id="register-form" class="auth-form" novalidate>
+            <h2 class="form-section-title">Informations personnelles</h2>
+            <div class="form-grid">
+              <div class="field">
+                <label for="nom">Nom *</label
+                ><input
+                  id="nom"
+                  name="nom"
+                  type="text"
+                  autocomplete="family-name"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="prenom">Prénom *</label
+                ><input
+                  id="prenom"
+                  name="prenom"
+                  type="text"
+                  autocomplete="given-name"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="matricule">Matricule étudiant *</label
+                ><input id="matricule" name="matricule" type="text" required />
+              </div>
+              <div class="field">
+                <label for="email">Email *</label
+                ><input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="phone">Téléphone</label
+                ><input id="phone" name="phone" type="tel" autocomplete="tel" />
+              </div>
+            </div>
+            <h2 class="form-section-title">Informations académiques</h2>
+            <div class="form-grid">
+              <div class="field">
+                <label for="classe">Classe *</label
+                ><input id="classe" name="classe" type="text" required />
+              </div>
+              <div class="field">
+                <label for="specialite">Spécialité *</label
+                ><input
+                  id="specialite"
+                  name="specialite"
+                  type="text"
+                  required
+                />
+              </div>
+            </div>
+            <h2 class="form-section-title">Sécurité</h2>
+            <div class="form-grid">
+              <div class="field">
+                <label for="password">Mot de passe *</label
+                ><input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="new-password"
+                  required
+                />
+              </div>
+              <div class="field">
+                <label for="passwordConfirm">Confirmer le mot de passe *</label
+                ><input
+                  id="passwordConfirm"
+                  name="passwordConfirm"
+                  type="password"
+                  autocomplete="new-password"
+                  required
+                />
+              </div>
+            </div>
+            <p id="register-message" class="form-message" role="alert"></p>
+            <button class="btn btn-primary" type="submit">
+              Créer mon compte
+            </button>
+          </form>
+          <div class="auth-links">
+            <a href="login.html">J'ai déjà un compte</a
+            ><a href="index.html">Retour à l'accueil</a>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="js/script.js"></script>
+  </body>
+</html>

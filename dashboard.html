@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mon espace | ISET Djerba</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body data-page="dashboard">
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="dashboard.html" class="brand" aria-label="Mon espace étudiant">
+          <span class="brand-mark">I</span>
+          <span class="brand-text"
+            ><strong>ISET Djerba</strong><small>Espace étudiant</small></span
+          >
+        </a>
+        <button class="btn btn-secondary" type="button" data-logout>
+          Se déconnecter
+        </button>
+      </div>
+    </header>
+    <main class="dashboard-shell">
+      <div class="container">
+        <div class="dashboard-header">
+          <div>
+            <span class="eyebrow">Tableau de bord</span>
+            <h1>Bonjour, <span data-student-name>Étudiant</span></h1>
+            <p>
+              Retrouvez les ressources et les étapes de votre parcours de stage.
+            </p>
+          </div>
+        </div>
+        <section class="dashboard-panel">
+          <span class="eyebrow">Mon profil</span>
+          <h2>Informations étudiant</h2>
+          <div class="profile-grid">
+            <div class="profile-item">
+              <small>Nom</small><strong data-student-field="nom"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Prénom</small><strong data-student-field="prenom"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Matricule</small
+              ><strong data-student-field="matricule"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Email</small><strong data-student-field="email"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Téléphone</small
+              ><strong data-student-field="phone"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Classe</small><strong data-student-field="classe"></strong>
+            </div>
+            <div class="profile-item">
+              <small>Spécialité</small
+              ><strong data-student-field="specialite"></strong>
+            </div>
+          </div>
+        </section>
+        <section class="dashboard-panel" style="margin-top: 1.5rem">
+          <span class="eyebrow">Parcours de stage</span>
+          <h2>Continuez votre préparation</h2>
+          <p>
+            Les contenus existants de la plateforme restent accessibles depuis
+            votre espace.
+          </p>
+          <div class="dashboard-links">
+            <a class="dashboard-link" href="stages.html"
+              >Voir les 11 étapes du stage</a
+            >
+            <a class="dashboard-link" href="stage-details.html"
+              >Consulter le guide et les documents</a
+            >
+            <a class="dashboard-link" href="index.html#conseils"
+              >Lire les conseils pratiques</a
+            >
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion étudiant | ISET Djerba</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <main class="auth-page">
+      <div class="container auth-shell">
+        <section class="auth-card">
+          <a
+            href="espace-etudiant.html"
+            class="brand"
+            aria-label="Retour à l'espace étudiant"
+          >
+            <span class="brand-mark">I</span>
+            <span class="brand-text"
+              ><strong>ISET Djerba</strong
+              ><small>Stage ISET Djerba</small></span
+            >
+          </a>
+          <span class="eyebrow">Accès étudiant</span>
+          <h1>Connexion Étudiant</h1>
+          <p>Retrouvez votre parcours et vos ressources de stage.</p>
+          <form id="login-form" class="auth-form" novalidate>
+            <div class="field">
+              <label for="identifier">Matricule ou Email</label>
+              <input
+                id="identifier"
+                name="identifier"
+                type="text"
+                autocomplete="username"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="password">Mot de passe</label>
+              <div class="password-wrap">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                />
+                <button
+                  class="password-toggle"
+                  type="button"
+                  data-toggle-password="password"
+                  aria-pressed="false"
+                >
+                  Afficher
+                </button>
+              </div>
+            </div>
+            <p id="login-message" class="form-message" role="alert"></p>
+            <button class="btn btn-primary" type="submit">Se connecter</button>
+          </form>
+          <div class="auth-links">
+            <a href="forgot-password.html">Mot de passe oublié ?</a>
+            <a href="register.html">Créer un compte</a>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="js/script.js"></script>
+  </body>
+</html>
