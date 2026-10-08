@@ -185,6 +185,9 @@ document.addEventListener("DOMContentLoaded", () => {
             "success",
           );
           registerForm.reset();
+          window.setTimeout(() => {
+            window.location.href = "login.html";
+          }, 1200);
         } catch {
           setMessage(
             message,
