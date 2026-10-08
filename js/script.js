@@ -263,6 +263,13 @@ document.addEventListener("DOMContentLoaded", () => {
   setupAuthForms();
 
   const session = getSession();
+  const authOnlyElements = document.querySelectorAll("[data-auth-only]");
+  if (session) {
+    authOnlyElements.forEach((element) => element.classList.remove("hidden"));
+  } else {
+    authOnlyElements.forEach((element) => element.classList.add("hidden"));
+  }
+
   if (currentPage === "dashboard" && session) {
     document.querySelectorAll("[data-student-name]").forEach((node) => {
       node.textContent = `${session.prenom} ${session.nom}`;

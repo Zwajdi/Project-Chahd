@@ -10,7 +10,7 @@
     <title>ISET Djerba | Stage ISET Djerba</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
+  <body data-page="home">
     <a class="skip-link" href="#main-content">Aller au contenu</a>
 
     <header class="site-header">
@@ -25,7 +25,7 @@
 
         <nav class="main-nav" aria-label="Navigation principale">
           <a href="index.html" class="active">Accueil</a>
-          <a href="#etapes">Étapes du stage</a>
+          <a href="#etapes" data-auth-only>Étapes du stage</a>
           <a href="#documents">Documents</a>
           <a href="#conseils">Conseils</a>
           <a href="#faq">FAQ</a>
@@ -46,7 +46,7 @@
 
       <nav id="mobile-menu" class="mobile-menu" aria-label="Menu mobile">
         <a href="index.html" class="active">Accueil</a>
-        <a href="#etapes">Étapes du stage</a>
+        <a href="#etapes" data-auth-only>Étapes du stage</a>
         <a href="#documents">Documents</a>
         <a href="#conseils">Conseils</a>
         <a href="#faq">FAQ</a>
@@ -66,7 +66,7 @@
             </p>
 
             <div class="hero-actions">
-              <a href="#etapes" class="btn btn-primary">Voir les étapes</a>
+              <a href="#etapes" class="btn btn-primary" data-auth-only>Voir les étapes</a>
               <a href="stage-details.html" class="btn btn-secondary"
                 >Guide du stage</a
               >
@@ -133,7 +133,7 @@
         </div>
       </section>
 
-      <section id="etapes" class="steps section-spacing">
+      <section id="etapes" class="steps section-spacing" data-auth-only>
         <div class="container">
           <div class="section-heading reveal">
             <span class="eyebrow">Processus complet</span>
@@ -565,7 +565,7 @@
           <h4>Navigation</h4>
           <ul>
             <li><a href="index.html">Accueil</a></li>
-            <li><a href="#etapes">Étapes</a></li>
+            <li><a href="#etapes" data-auth-only>Étapes</a></li>
             <li><a href="#documents">Documents</a></li>
             <li><a href="#conseils">Conseils</a></li>
             <li><a href="#faq">FAQ</a></li>
