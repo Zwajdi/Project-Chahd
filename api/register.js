@@ -46,27 +46,27 @@ module.exports = async (request, response) => {
     const data = request.body || {};
     const students = await readBlobJson("students.json", readLocalStudents());
     const accounts = await readBlobJson("accounts.json", []);
-    const matricule = String(data.matricule || "")
+    const cin = String(data.cin || "")
       .trim()
       .toLowerCase();
     const email = String(data.email || "")
       .trim()
       .toLowerCase();
     const studentIndex = students.findIndex(
-      (student) => student.matricule.toLowerCase() === matricule,
+      (student) => String(student.cin || "").trim().toLowerCase() === cin,
     );
 
     if (studentIndex === -1) {
       response.status(400).json({
-        message: "Ce matricule étudiant n'est pas reconnu.",
+        message: "Ce CIN n'est pas reconnu.",
       });
       return;
     }
     if (
-      accounts.some((account) => account.matricule.toLowerCase() === matricule)
+      accounts.some((account) => String(account.cin || "").trim().toLowerCase() === cin)
     ) {
       response.status(409).json({
-        message: "Un compte existe déjà avec ce matricule.",
+        message: "Un compte existe déjà avec ce CIN.",
       });
       return;
     }
@@ -78,7 +78,7 @@ module.exports = async (request, response) => {
     }
 
     const profile = {
-      matricule: students[studentIndex].matricule,
+      cin: students[studentIndex].cin,
       nom: String(data.nom || "").trim(),
       prenom: String(data.prenom || "").trim(),
       email: String(data.email || "").trim(),
@@ -88,7 +88,7 @@ module.exports = async (request, response) => {
     };
     students[studentIndex] = profile;
     accounts.push({
-      matricule: profile.matricule,
+      cin: profile.cin,
       email: profile.email,
       password: String(data.password || ""),
     });

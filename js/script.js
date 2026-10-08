@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!identifier) {
           setMessage(
             message,
-            "Veuillez saisir votre matricule ou votre email.",
+            "Veuillez saisir votre CIN ou votre email.",
           );
           return;
         }
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const account = getAccounts().find(
           (student) =>
-            (student.matricule || "").toLowerCase() === identifier ||
+            (student.cin || "").toLowerCase() === identifier ||
             (student.email || "").toLowerCase() === identifier,
         );
         if (!account || account.password !== password) {
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const requiredFields = [
           "nom",
           "prenom",
-          "matricule",
+          "cin",
           "email",
           "classe",
           "specialite",
@@ -128,10 +128,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (
           accounts.some(
             (student) =>
-              student.matricule.toLowerCase() === data.matricule.toLowerCase(),
+              student.cin.toLowerCase() === data.cin.toLowerCase(),
           )
         ) {
-          setMessage(message, "Un compte existe déjà avec ce matricule.");
+          setMessage(message, "Un compte existe déjà avec ce CIN.");
           return;
         }
         if (
@@ -152,12 +152,12 @@ document.addEventListener("DOMContentLoaded", () => {
           );
           const authorizedStudent = authorizedStudents.find(
             (student) =>
-              student.matricule.toLowerCase() === data.matricule.toLowerCase(),
+              student.cin.toLowerCase() === data.cin.toLowerCase(),
           );
           if (!authorizedStudent) {
             setMessage(
               message,
-              "Ce matricule étudiant n'est pas reconnu. Veuillez vérifier vos informations ou contacter l'administration.",
+              "Ce CIN n'est pas reconnu. Veuillez vérifier vos informations ou contacter l'administration.",
             );
             return;
           }
@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const message = document.getElementById("forgot-message");
         const account = getAccounts().find(
           (student) =>
-            student.matricule.toLowerCase() === identifier ||
+            (student.cin || "").toLowerCase() === identifier ||
             student.email.toLowerCase() === identifier,
         );
         if (!account) {
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
         document.getElementById("reset-fields")?.classList.remove("hidden");
-        forgotForm.dataset.matricule = account.matricule;
+        forgotForm.dataset.cin = account.cin;
         setMessage(
           message,
           "Compte trouvé. Vous pouvez réinitialiser votre mot de passe.",
@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           const accounts = getAccounts();
           const account = accounts.find(
-            (student) => student.matricule === forgotForm.dataset.matricule,
+            (student) => student.cin === forgotForm.dataset.cin,
           );
           account.password = newPassword;
           saveAccounts(accounts);

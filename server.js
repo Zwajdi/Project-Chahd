@@ -41,21 +41,21 @@ const registerStudent = async (request, response) => {
     const accounts = readJson(accountsPath);
     const studentIndex = students.findIndex(
       (student) =>
-        student.matricule.toLowerCase() ===
-        String(data.matricule).trim().toLowerCase(),
+        student.cin.toLowerCase() ===
+        String(data.cin).trim().toLowerCase(),
     );
 
     if (studentIndex === -1) {
-      sendJson(response, 400, { message: "Matricule étudiant non reconnu." });
+      sendJson(response, 400, { message: "CIN non reconnu." });
       return;
     }
     if (
       accounts.some(
-        (account) => account.matricule === students[studentIndex].matricule,
+        (account) => account.cin === students[studentIndex].cin,
       )
     ) {
       sendJson(response, 409, {
-        message: "Un compte existe déjà avec ce matricule.",
+        message: "Un compte existe déjà avec ce CIN.",
       });
       return;
     }
@@ -73,7 +73,7 @@ const registerStudent = async (request, response) => {
     }
 
     const profile = {
-      matricule: students[studentIndex].matricule,
+      cin: students[studentIndex].cin,
       nom: String(data.nom).trim(),
       prenom: String(data.prenom).trim(),
       email: String(data.email).trim(),
@@ -83,7 +83,7 @@ const registerStudent = async (request, response) => {
     };
     students[studentIndex] = profile;
     accounts.push({
-      matricule: profile.matricule,
+      cin: profile.cin,
       email: profile.email,
       password: data.password,
     });
