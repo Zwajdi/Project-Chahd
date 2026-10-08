@@ -5,11 +5,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getAccounts = () => {
     try {
-      return JSON.parse(localStorage.getItem(STUDENTS_KEY) || "[]");
+      const accounts = JSON.parse(localStorage.getItem(STUDENTS_KEY) || "[]");
+      return Array.isArray(accounts)
+        ? accounts.map((account) => ({
+            ...account,
+            cin: account.cin || account.matricule || "",
+          }))
+        : [];
     } catch {
       return [];
     }
   };
+
+  const normalizeIdentifier = (value) =>
+    String(value || "")
+      .trim()
+      .toLowerCase();
 
   const saveAccounts = (accounts) => {
     localStorage.setItem(STUDENTS_KEY, JSON.stringify(accounts));
@@ -73,8 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         const account = getAccounts().find(
           (student) =>
-            (student.cin || "").toLowerCase() === identifier ||
-            (student.email || "").toLowerCase() === identifier,
+            normalizeIdentifier(student.cin) === identifier ||
+            normalizeIdentifier(student.email) === identifier,
         );
         if (!account || account.password !== password) {
           setMessage(message, "Identifiants incorrects.");
@@ -128,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (
           accounts.some(
             (student) =>
-              student.cin.toLowerCase() === data.cin.toLowerCase(),
+              normalizeIdentifier(student.cin) === normalizeIdentifier(data.cin),
           )
         ) {
           setMessage(message, "Un compte existe déjà avec ce CIN.");
@@ -137,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (
           accounts.some(
             (student) =>
-              student.email.toLowerCase() === data.email.toLowerCase(),
+              normalizeIdentifier(student.email) === normalizeIdentifier(data.email),
           )
         ) {
           setMessage(message, "Un compte existe déjà avec cet email.");
@@ -152,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
           );
           const authorizedStudent = authorizedStudents.find(
             (student) =>
-              student.cin.toLowerCase() === data.cin.toLowerCase(),
+              normalizeIdentifier(student.cin) === normalizeIdentifier(data.cin),
           );
           if (!authorizedStudent) {
             setMessage(
@@ -205,8 +216,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const message = document.getElementById("forgot-message");
         const account = getAccounts().find(
           (student) =>
-            (student.cin || "").toLowerCase() === identifier ||
-            student.email.toLowerCase() === identifier,
+            normalizeIdentifier(student.cin) === identifier ||
+            normalizeIdentifier(student.email) === identifier,
         );
         if (!account) {
           setMessage(message, "Aucun compte correspondant n'a été trouvé.");
