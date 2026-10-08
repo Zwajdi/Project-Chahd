@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const setupAuthForms = () => {
     const loginForm = document.getElementById("login-form");
     if (loginForm) {
-      loginForm.addEventListener("submit", (event) => {
+      loginForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         const identifier = loginForm.elements.identifier.value
           .trim()
@@ -82,17 +82,22 @@ document.addEventListener("DOMContentLoaded", () => {
           setMessage(message, "Veuillez saisir votre mot de passe.");
           return;
         }
-        const account = getAccounts().find(
-          (student) =>
-            normalizeIdentifier(student.cin) === identifier ||
-            normalizeIdentifier(student.email) === identifier,
-        );
-        if (!account || account.password !== password) {
-          setMessage(message, "Identifiants incorrects.");
-          return;
+        try {
+          const loginResponse = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ identifier, password }),
+          });
+          const result = await loginResponse.json().catch(() => ({}));
+          if (!loginResponse.ok) {
+            setMessage(message, result.message || "Identifiants incorrects.");
+            return;
+          }
+          localStorage.setItem(SESSION_KEY, JSON.stringify(result.account));
+          window.location.href = "dashboard.html";
+        } catch {
+          setMessage(message, "La connexion est momentanément indisponible.");
         }
-        localStorage.setItem(SESSION_KEY, JSON.stringify(account));
-        window.location.href = "dashboard.html";
       });
     }
 
