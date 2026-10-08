@@ -1,1 +1,14 @@
+<<<<<<< HEAD
 []
+=======
+[
+  {
+    "matricule": "1111a",
+    "nom": "Ahmed",
+    "prenom": "Mohamed",
+    "email": "ahmed@iset.tn",
+    "classe": "2 LTI",
+    "specialite": "Développement des Systèmes Informatiques"
+  }
+]
+>>>>>>> 95c8f5fe9de65cbf2e5e2cb42e2ea9c477cde003
