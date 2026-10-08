@@ -175,7 +175,8 @@ document.addEventListener("DOMContentLoaded", () => {
           });
           if (!registrationResponse.ok) {
             const result = await registrationResponse.json().catch(() => ({}));
-            throw new Error(result.message || "Inscription indisponible");
+            setMessage(message, result.message || "Inscription indisponible");
+            return;
           }
           accounts.push(account);
           saveAccounts(accounts);

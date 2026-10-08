@@ -2,13 +2,27 @@ const fs = require("fs");
 const path = require("path");
 const { list, put } = require("@vercel/blob");
 
+const getBlobToken = () => {
+  const token = process.env.BLOB_READ_WRITE_TOKEN?.trim();
+  if (!token) {
+    const error = new Error("BLOB_READ_WRITE_TOKEN is not configured.");
+    error.code = "BLOB_NOT_CONFIGURED";
+    throw error;
+  }
+  return token;
+};
+
 const readLocalStudents = () => {
   const filePath = path.join(process.cwd(), "data", "students.json");
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
 };
 
 const readBlobJson = async (fileName, fallback) => {
-  const result = await list({ prefix: fileName, limit: 1 });
+  const result = await list({
+    prefix: fileName,
+    limit: 1,
+    token: getBlobToken(),
+  });
   if (!result.blobs.length) return fallback;
   const response = await fetch(result.blobs[0].url);
   if (!response.ok) throw new Error(`${fileName} indisponible`);
@@ -17,6 +31,7 @@ const readBlobJson = async (fileName, fallback) => {
 
 const writeBlobJson = async (fileName, data) => {
   await put(fileName, JSON.stringify(data, null, 2), {
+    token: getBlobToken(),
     access: "public",
     addRandomSuffix: false,
     allowOverwrite: true,
@@ -87,10 +102,11 @@ module.exports = async (request, response) => {
       message: "Compte enregistré dans Vercel Blob.",
     });
   } catch (error) {
-    response.status(500).json({
-      message:
-        "Le stockage Vercel n'est pas configuré. Ajoutez BLOB_READ_WRITE_TOKEN dans les variables Vercel.",
-      detail: error.message,
+    const isBlobConfigurationError = error.code === "BLOB_NOT_CONFIGURED";
+    response.status(isBlobConfigurationError ? 503 : 500).json({
+      message: isBlobConfigurationError
+        ? "Le stockage Vercel n'est pas configuré. Ajoutez BLOB_READ_WRITE_TOKEN dans les variables Vercel, puis redéployez."
+        : "Le stockage des comptes est momentanément indisponible.",
     });
   }
 };
