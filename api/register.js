@@ -4,7 +4,7 @@ const { list, put } = require("@vercel/blob");
 
 const getBlobToken = () => {
   const token = process.env.BLOB_READ_WRITE_TOKEN?.trim();
-  if (!token) {
+  if (!token || !/^vercel_blob_rw_[^_]+(?:_.+)?$/.test(token)) {
     const error = new Error("BLOB_READ_WRITE_TOKEN is not configured.");
     error.code = "BLOB_NOT_CONFIGURED";
     throw error;
@@ -102,7 +102,14 @@ module.exports = async (request, response) => {
       message: "Compte enregistré dans Vercel Blob.",
     });
   } catch (error) {
-    const isBlobConfigurationError = error.code === "BLOB_NOT_CONFIGURED";
+    const isBlobConfigurationError =
+      error.code === "BLOB_NOT_CONFIGURED" ||
+      error.message?.includes("Invalid token") ||
+      error.message?.includes("No blob credentials");
+    console.error("Registration storage error", {
+      code: error.code,
+      message: error.message,
+    });
     response.status(isBlobConfigurationError ? 503 : 500).json({
       message: isBlobConfigurationError
         ? "Le stockage Vercel n'est pas configuré. Ajoutez BLOB_READ_WRITE_TOKEN dans les variables Vercel, puis redéployez."
