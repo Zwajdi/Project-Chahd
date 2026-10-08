@@ -168,29 +168,20 @@ document.addEventListener("DOMContentLoaded", () => {
             password: data.password,
           };
           delete account.passwordConfirm;
-          const isLocalServer = ["localhost", "127.0.0.1"].includes(
-            window.location.hostname,
-          );
-          if (isLocalServer) {
-            const registrationResponse = await fetch("/api/register", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(account),
-            });
-            if (!registrationResponse.ok) {
-              const result = await registrationResponse
-                .json()
-                .catch(() => ({}));
-              throw new Error(result.message || "Inscription indisponible");
-            }
+          const registrationResponse = await fetch("/api/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(account),
+          });
+          if (!registrationResponse.ok) {
+            const result = await registrationResponse.json().catch(() => ({}));
+            throw new Error(result.message || "Inscription indisponible");
           }
           accounts.push(account);
           saveAccounts(accounts);
           setMessage(
             message,
-            isLocalServer
-              ? "Compte créé et enregistré dans les fichiers JSON. Vous pouvez maintenant vous connecter."
-              : "Compte créé sur cet appareil. Vous pouvez maintenant vous connecter.",
+            "Compte créé et enregistré. Vous pouvez maintenant vous connecter.",
             "success",
           );
           registerForm.reset();
