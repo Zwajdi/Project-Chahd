@@ -18,7 +18,10 @@ const writeJson = (filePath, data) =>
   fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 
 const sendJson = (response, statusCode, payload) => {
-  response.writeHead(statusCode, { "Content-Type": contentTypes[".json"] });
+  response.writeHead(statusCode, {
+    "Content-Type": contentTypes[".json"],
+    "Access-Control-Allow-Origin": "*",
+  });
   response.end(JSON.stringify(payload));
 };
 
@@ -106,8 +109,49 @@ const serveStaticFile = (request, response) => {
   });
 };
 
+const loginStudent = async (request, response) => {
+  try {
+    const data = await collectBody(request);
+    const identifier = String(data.identifier || "").trim().toLowerCase();
+    const password = String(data.password || "");
+    const students = readJson(studentsPath);
+    const student = students.find(
+      (entry) =>
+        (String(entry.cin || "").trim().toLowerCase() === identifier ||
+          String(entry.email || "").trim().toLowerCase() === identifier) &&
+        String(entry.password || "") === password,
+    );
+
+    if (!student) {
+      sendJson(response, 401, { message: "Identifiants incorrects." });
+      return;
+    }
+
+    const { password: storedPassword, ...profile } = student;
+    sendJson(response, 200, { account: profile });
+  } catch (error) {
+    console.error("Login error:", error.message);
+    sendJson(response, 400, {
+      message: "La requête de connexion est invalide.",
+    });
+  }
+};
+
 http
   .createServer((request, response) => {
+  if (request.method === "OPTIONS") {
+    response.writeHead(204, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    });
+    response.end();
+    return;
+  }
+    if (request.method === "POST" && request.url === "/api/login") {
+      loginStudent(request, response);
+      return;
+    }
     if (request.method === "POST" && request.url === "/api/register") {
       registerStudent(request, response);
       return;

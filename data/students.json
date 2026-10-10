@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "cin": "TEST2026",
+    "nom": "Test",
+    "prenom": "Étudiant",
+    "email": "etudiant.test@iset-djerba.tn",
+    "phone": "20000000",
+    "dateNaissance": "2000-01-01",
+    "adresse": "Djerba, Tunisie",
+    "classe": "L3-DT",
+    "specialite": "Développement de Systèmes d'Information",
+    "password": "Test@2026"
+  }
+]

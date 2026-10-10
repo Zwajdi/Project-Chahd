@@ -1232,6 +1232,205 @@ a.student-avatar:focus-visible {
   padding-top: 4rem;
 }
 
+.internship-heading {
+  padding-bottom: 2rem;
+}
+
+.internship-heading h1 {
+  max-width: 760px;
+  margin: 1rem 0 0.7rem;
+}
+
+.internship-heading p,
+.search-filters p,
+.map-disclaimer {
+  color: var(--muted-color);
+}
+
+.search-filters {
+  margin-bottom: 3rem;
+}
+
+.filter-heading,
+.results-heading,
+.company-card-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.filter-heading h2,
+.results-heading h2 {
+  margin: 0;
+}
+
+.filter-heading p {
+  margin: 0.35rem 0 0;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.field select,
+.field input[type="search"] {
+  width: 100%;
+  border: 1px solid rgba(11, 79, 108, 0.2);
+  border-radius: var(--radius-small);
+  padding: 0.85rem 0.9rem;
+  color: var(--text-color);
+  background: #fff;
+}
+
+.field select:focus,
+.field input[type="search"]:focus {
+  outline: 3px solid rgba(15, 157, 138, 0.18);
+  border-color: var(--secondary-color);
+}
+
+.compact-heading {
+  margin-bottom: 1rem;
+}
+
+.compact-heading h2 {
+  margin: 0;
+}
+
+.compact-heading p {
+  margin: 0.25rem 0 0;
+  color: var(--muted-color);
+}
+
+.company-map {
+  height: 440px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-card);
+}
+
+.map-disclaimer {
+  margin: 0.8rem 0 0;
+  font-size: 0.85rem;
+}
+
+.company-results {
+  padding: 4rem 0;
+}
+
+.results-heading {
+  align-items: end;
+  margin-bottom: 1.3rem;
+}
+
+.results-heading h2 {
+  margin-top: 0.75rem;
+}
+
+.result-count {
+  color: var(--primary-color);
+  white-space: nowrap;
+}
+
+.company-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.company-card {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) 1fr;
+  gap: 1.4rem;
+  padding: 1.5rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  box-shadow: var(--shadow-card);
+}
+
+.company-image {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: var(--radius-small);
+}
+
+.company-card h3 {
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.company-card > p {
+  color: var(--muted-color);
+}
+
+.company-sector {
+  margin: 0.2rem 0 0;
+  color: var(--secondary-color);
+  font-weight: 700;
+}
+
+.company-badge {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  color: var(--primary-color);
+  background: var(--surface-alt);
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.company-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.company-meta dt {
+  color: var(--muted-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.company-meta dd {
+  margin: 0.2rem 0 0;
+}
+
+.company-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.company-actions .small-btn {
+  margin-top: 0;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.company-source {
+  margin-left: auto;
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.empty-state {
+  padding: 1.5rem;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-medium);
+  color: var(--muted-color);
+  text-align: center;
+}
+
 .page-hero-inner {
   text-align: center;
   max-width: 760px;
@@ -1242,6 +1441,41 @@ a.student-avatar:focus-visible {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.2rem;
+}
+
+.stage-search-cta {
+  padding-top: 1rem;
+}
+
+.stage-search-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid rgba(15, 157, 138, 0.2);
+  border-radius: var(--radius-large);
+  background:
+    radial-gradient(circle at 90% 10%, rgba(125, 213, 228, 0.2), transparent 34%),
+    linear-gradient(135deg, rgba(11, 79, 108, 0.08), rgba(15, 157, 138, 0.08));
+  box-shadow: var(--shadow-card);
+}
+
+.stage-search-card h2 {
+  max-width: 650px;
+  margin: 0.9rem 0 0.5rem;
+  color: var(--text-color);
+  line-height: 1.15;
+}
+
+.stage-search-card p {
+  max-width: 650px;
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.stage-search-card .btn {
+  flex-shrink: 0;
 }
 
 .detail-card {
@@ -1324,6 +1558,34 @@ a.student-avatar:focus-visible {
 
   .hero-points {
     grid-template-columns: 1fr;
+  }
+
+  .filter-grid,
+  .company-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .stage-search-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .company-card {
+    grid-template-columns: 1fr;
+  }
+
+  .company-map {
+    height: 360px;
+  }
+
+  .filter-heading,
+  .results-heading,
+  .company-card-heading {
+    flex-direction: column;
+  }
+
+  .company-source {
+    margin-left: 0;
   }
 
   .hero-content h1,

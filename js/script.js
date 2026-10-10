@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const STUDENTS_KEY = "iset-stage-student-accounts";
   const SESSION_KEY = "iset-stage-current-student";
   const currentPage = document.body.dataset.page;
+  const apiUrl = (path) =>
+    window.location.protocol === "file:"
+      ? `http://localhost:8000${path}`
+      : path;
 
   const getAccounts = () => {
     try {
@@ -40,6 +44,141 @@ document.addEventListener("DOMContentLoaded", () => {
     element.className = `form-message ${type}`;
   };
 
+  const setupCompanySearch = async () => {
+    const mapElement = document.getElementById("company-map");
+    const companyList = document.getElementById("company-list");
+    if (!mapElement || !companyList || typeof L === "undefined") return;
+
+    const specialtyFilter = document.getElementById("specialty-filter");
+    const companySearch = document.getElementById("company-search");
+    const countNode = document.getElementById("company-count");
+    const mapStatus = document.getElementById("map-status");
+    const resetButton = document.getElementById("reset-company-filters");
+    const map = L.map(mapElement).setView([33.8076, 10.8451], 11);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    let companies;
+    try {
+      const response = await fetch("data/companies.json");
+      if (!response.ok)
+        throw new Error("Impossible de charger les entreprises.");
+      companies = await response.json();
+      if (!Array.isArray(companies))
+        throw new Error("Format de données invalide.");
+    } catch (error) {
+      mapStatus.textContent =
+        "Les entreprises ne sont pas disponibles pour le moment.";
+      companyList.innerHTML = `<p class="empty-state">${error.message}</p>`;
+      return;
+    }
+
+    const markers = new Map();
+    const clearMarkers = () => {
+      markers.forEach((marker) => marker.remove());
+      markers.clear();
+    };
+    const escapeHtml = (value) =>
+      String(value || "").replace(
+        /[&<>"']/g,
+        (character) =>
+          ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;",
+          })[character],
+      );
+    const contactActions = (company) => {
+      const actions = [];
+      if (company.phone)
+        actions.push(
+          `<a class="btn btn-secondary small-btn" href="tel:${escapeHtml(company.phone)}">Appeler</a>`,
+        );
+      if (company.email)
+        actions.push(
+          `<a class="btn btn-secondary small-btn" href="mailto:${escapeHtml(company.email)}">Envoyer un e-mail</a>`,
+        );
+      if (company.website)
+        actions.push(
+          `<a class="btn btn-secondary small-btn" href="${escapeHtml(company.website)}" target="_blank" rel="noopener">Visiter le site</a>`,
+        );
+      if (company.latitude !== null && company.longitude !== null) {
+        actions.push(
+          `<button class="btn btn-secondary small-btn" type="button" data-locate-company="${escapeHtml(company.id)}">Voir sur la carte</button>`,
+        );
+      }
+      return actions.join("");
+    };
+    const filteredCompanies = () => {
+      const specialty = specialtyFilter.value;
+      const query = companySearch.value.trim().toLowerCase();
+      return companies.filter((company) => {
+        const matchesSpecialty = !specialty || company.department === specialty;
+        const matchesQuery =
+          !query ||
+          `${company.name} ${company.sector}`.toLowerCase().includes(query);
+        return matchesSpecialty && matchesQuery;
+      });
+    };
+    const render = () => {
+      const visibleCompanies = filteredCompanies();
+      clearMarkers();
+      visibleCompanies.forEach((company) => {
+        if (company.latitude === null || company.longitude === null) return;
+        const marker = L.marker([company.latitude, company.longitude])
+          .addTo(map)
+          .bindPopup(
+            `<strong>${escapeHtml(company.name)}</strong><br>${escapeHtml(company.sector)}<br>${escapeHtml(company.address)}`,
+          );
+        marker.on("click", () =>
+          document
+            .getElementById(`company-${company.id}`)
+            ?.scrollIntoView({ behavior: "smooth", block: "center" }),
+        );
+        markers.set(company.id, marker);
+      });
+      countNode.textContent = `${visibleCompanies.length} résultat${visibleCompanies.length > 1 ? "s" : ""}`;
+      mapStatus.textContent = `${markers.size} position${markers.size > 1 ? "s" : ""} vérifiée${markers.size > 1 ? "s" : ""} sur la carte`;
+      companyList.innerHTML = visibleCompanies.length
+        ? visibleCompanies
+            .map(
+              (company) => `
+          <article id="company-${escapeHtml(company.id)}" class="company-card">
+            <img class="company-image" src="${escapeHtml(company.image)}" alt="Présentation de ${escapeHtml(company.name)}" loading="lazy" onerror="this.onerror=null;this.src='assets/companies/default-company.png';">
+            <div class="company-card-content"><div class="company-card-heading"><div><h3>${escapeHtml(company.name)}</h3><p class="company-sector">${escapeHtml(company.sector)}</p></div><span class="company-badge">${escapeHtml(company.department)}</span></div>
+            <p>${escapeHtml(company.description)}</p>
+            <dl class="company-meta"><div><dt>Adresse</dt><dd>${escapeHtml(company.address)}</dd></div><div><dt>Ville / zone</dt><dd>${escapeHtml(company.city)}</dd></div></dl>
+            <div class="company-actions">${contactActions(company)}<a class="company-source" href="${escapeHtml(company.sourceUrl)}" target="_blank" rel="noopener"></a></div></div>
+          </article>`,
+            )
+            .join("")
+        : '<p class="empty-state">Aucune entreprise ne correspond à votre recherche. Essayez une autre spécialité ou réinitialisez les filtres.</p>';
+      companyList
+        .querySelectorAll("[data-locate-company]")
+        .forEach((button) => {
+          button.addEventListener("click", () => {
+            const marker = markers.get(button.dataset.locateCompany);
+            if (!marker) return;
+            mapElement.scrollIntoView({ behavior: "smooth", block: "center" });
+            map.setView(marker.getLatLng(), 14);
+            marker.openPopup();
+          });
+        });
+    };
+    specialtyFilter.addEventListener("change", render);
+    companySearch.addEventListener("input", render);
+    resetButton.addEventListener("click", () => {
+      specialtyFilter.value = "";
+      companySearch.value = "";
+      render();
+    });
+    render();
+  };
+
   const togglePasswordButtons = () => {
     document.querySelectorAll("[data-toggle-password]").forEach((button) => {
       button.addEventListener("click", () => {
@@ -55,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const protectDashboard = () => {
     if (
-      (currentPage === "dashboard" || currentPage === "profile") &&
+      ["dashboard", "profile", "internship-search"].includes(currentPage) &&
       !getSession()
     ) {
       window.location.replace("login.html");
@@ -83,7 +222,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
         try {
-          const loginResponse = await fetch("/api/login", {
+          const loginResponse = await fetch(apiUrl("/api/login"), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ identifier, password }),
@@ -173,7 +312,7 @@ document.addEventListener("DOMContentLoaded", () => {
             password: data.password,
           };
           delete account.passwordConfirm;
-          const registrationResponse = await fetch("/api/register", {
+          const registrationResponse = await fetch(apiUrl("/api/register"), {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(account),
@@ -270,6 +409,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!protectDashboard()) return;
   togglePasswordButtons();
   setupAuthForms();
+  setupCompanySearch();
 
   const session = getSession();
   const authOnlyElements = document.querySelectorAll("[data-auth-only]");
@@ -280,7 +420,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (
-    (currentPage === "dashboard" || currentPage === "profile") &&
+    ["dashboard", "profile", "internship-search"].includes(currentPage) &&
     session
   ) {
     document.querySelectorAll("[data-student-name]").forEach((node) => {
