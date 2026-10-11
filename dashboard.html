@@ -63,11 +63,14 @@
             </p>
             <div class="hero-actions">
               <a href="#etapes" class="btn btn-primary">Voir les étapes</a>
-              <a
-                href="https://drive.google.com/file/d/1fvC1-FIeieiJNCusMKlRy4KfwcSwO1Ma/view?usp=sharing"
+              <button
                 class="btn btn-secondary"
-                >Exemples de Rapport PFE</a
+                type="button"
+                data-open-reports
+                aria-haspopup="dialog"
               >
+                Exemples de Rapport PFE
+              </button>
             </div>
           </div>
           <div
@@ -103,6 +106,65 @@
           </div>
         </div>
       </section>
+      <div
+        class="reports-modal"
+        id="reports-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="reports-modal-title"
+        hidden
+      >
+        <div class="reports-modal-content">
+          <button
+            class="reports-modal-close"
+            type="button"
+            data-close-reports
+            aria-label="Fermer la fenêtre"
+          >
+            &times;
+          </button>
+          <span class="eyebrow">Documents utiles</span>
+          <h2 id="reports-modal-title">Exemples de rapports PFE</h2>
+          <p>Choisissez un exemple de rapport à consulter.</p>
+          <div class="reports-list">
+            <a
+              class="btn btn-secondary"
+              href="https://drive.google.com/file/d/1fvC1-FIeieiJNCusMKlRy4KfwcSwO1Ma/view?usp=sharing"
+              target="_blank"
+              rel="noopener"
+              >Rapport 1</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://drive.google.com/file/d/1fvC1-FIeieiJNCusMKlRy4KfwcSwO1Ma/view?usp=sharing"
+              target="_blank"
+              rel="noopener"
+              >Rapport 2</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://drive.google.com/file/d/1fvC1-FIeieiJNCusMKlRy4KfwcSwO1Ma/view?usp=sharing"
+              target="_blank"
+              rel="noopener"
+              >Rapport 3</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://drive.google.com/file/d/1fvC1-FIeieiJNCusMKlRy4KfwcSwO1Ma/view?usp=sharing"
+              target="_blank"
+              rel="noopener"
+              >Rapport 4</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="https://drive.google.com/file/d/1fvC1-FIeieiJNCusMKlRy4KfwcSwO1Ma/view?usp=sharing"
+              target="_blank"
+              rel="noopener"
+              >Rapport 5</a
+            >
+          </div>
+        </div>
+      </div>
       <section id="etapes" class="steps section-spacing">
         <div class="container">
           <div class="section-heading reveal">

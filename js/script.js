@@ -411,6 +411,31 @@ document.addEventListener("DOMContentLoaded", () => {
   setupAuthForms();
   setupCompanySearch();
 
+  const reportsModal = document.getElementById("reports-modal");
+  const openReportsButton = document.querySelector("[data-open-reports]");
+  const closeReportsButton = document.querySelector("[data-close-reports]");
+  const closeReportsModal = () => {
+    if (!reportsModal) return;
+    reportsModal.hidden = true;
+    openReportsButton?.focus();
+  };
+
+  if (reportsModal && openReportsButton && closeReportsButton) {
+    openReportsButton.addEventListener("click", () => {
+      reportsModal.hidden = false;
+      closeReportsButton.focus();
+    });
+    closeReportsButton.addEventListener("click", closeReportsModal);
+    reportsModal.addEventListener("click", (event) => {
+      if (event.target === reportsModal) closeReportsModal();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !reportsModal.hidden) {
+        closeReportsModal();
+      }
+    });
+  }
+
   const session = getSession();
   const authOnlyElements = document.querySelectorAll("[data-auth-only]");
   if (session) {
