@@ -412,18 +412,22 @@ document.addEventListener("DOMContentLoaded", () => {
   setupCompanySearch();
 
   const reportsModal = document.getElementById("reports-modal");
-  const openReportsButton = document.querySelector("[data-open-reports]");
+  const openReportsButtons = document.querySelectorAll("[data-open-reports]");
   const closeReportsButton = document.querySelector("[data-close-reports]");
+  let activeReportsTrigger;
   const closeReportsModal = () => {
     if (!reportsModal) return;
     reportsModal.hidden = true;
-    openReportsButton?.focus();
+    activeReportsTrigger?.focus();
   };
 
-  if (reportsModal && openReportsButton && closeReportsButton) {
-    openReportsButton.addEventListener("click", () => {
-      reportsModal.hidden = false;
-      closeReportsButton.focus();
+  if (reportsModal && openReportsButtons.length && closeReportsButton) {
+    openReportsButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeReportsTrigger = button;
+        reportsModal.hidden = false;
+        closeReportsButton.focus();
+      });
     });
     closeReportsButton.addEventListener("click", closeReportsModal);
     reportsModal.addEventListener("click", (event) => {
